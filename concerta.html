@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <style>
+      /* #main {
+        background-image: url("zzd.png");
+        background-size: cover;
+      } */
+    </style>
+  </head>
+  <body>
+    <div id="main" style="width: 1200px; height: 600px"></div>
+    <!-- 时间选择器 -->
+    <input type="datetime-local" id="datetime-picker" /><button id="submit">
+      确定
+    </button>
+  </body>
+  <script>
+    function getHour(value) {
+      if (value === null) {
+        return null;
+      }
+      const date = new Date(value);
+      const d0 = new Date().setHours(0, 0, 0, 0);
+      const hour = (date.getTime() - d0) / 3600000;
+      return hour;
+    }
+
+    let start = getHour(localStorage.getItem("date"));
+
+    arr = [
+      [0, 0],
+      [0.25, 0.01],
+      [0.5, 0.5],
+      [1, 1.89],
+      [1.5, 2.08],
+      [2, 2.06],
+      [3, 2.13],
+      [4, 2.3],
+      [6, 3.52],
+      [6.8, 3.7],
+      [8, 3.33],
+      [10, 2.78],
+      [12, 2.08],
+      [14, 1.36],
+      [17, 0.75],
+      [20, 0.42],
+      // [24, 0.2],
+      // [30, 0.04],
+    ];
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById("main"));
+
+    function main() {
+      if (start === null) {
+        return;
+      }
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: "专注达 18mg 血药浓度图",
+          left: 500,
+          top: 20,
+        },
+        tooltip: {},
+        yAxis: {
+          type: "value",
+          splitNumber: 8,
+          // max: 5,
+          // min: -0.9,
+          axisLabel: {
+            show: false,
+          },
+        },
+        xAxis: {
+          type: "time",
+          splitNumber: 15,
+          axisLabel: {
+            formatter: "{HH}",
+          },
+          // min: 6,
+          // max: 24,
+        },
+
+        // grid: {
+        //   top: 76,
+        //   left: 187,
+        //   right: 127,
+        //   bottom: 170,
+        // },
+
+        series: [
+          {
+            name: "zzd",
+            type: "line",
+            data: arr.map((i) => [
+              new Date().setHours(0, 0, 0, 0) + (i[0] + start) * 3600000,
+              i[1],
+            ]),
+            smooth: true,
+            markLine: {
+              data: [
+                {
+                  name: "药效区间",
+                  yAxis: 2,
+                },
+                {
+                  name: "当前时间",
+                  xAxis: new Date().getTime(),
+                },
+              ],
+            },
+          },
+        ],
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    }
+
+    main();
+
+    document.getElementById("submit").addEventListener("click", () => {
+      const date = new Date(document.getElementById("datetime-picker").value);
+      localStorage.setItem("date", date);
+      const d0 = new Date().setHours(0, 0, 0, 0);
+      start = (date.getTime() - d0) / 3600000;
+      console.log(start);
+      main();
+    });
+
+    setInterval(() => {
+      main();
+    }, 60 * 1000);
+  </script>
+</html>
