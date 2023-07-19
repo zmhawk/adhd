@@ -77,12 +77,18 @@
           axisLabel: {
             show: false,
           },
+          splitLine: {
+            show: false,
+          },
         },
         xAxis: {
           type: "time",
           splitNumber: 15,
           axisLabel: {
             formatter: "{HH}",
+          },
+          splitLine: {
+            show: true,
           },
           // min: 6,
           // max: 24,
@@ -109,10 +115,16 @@
                 {
                   name: "药效区间",
                   yAxis: 2,
+                  label: {
+                    formatter: "药效区间",
+                  },
                 },
                 {
                   name: "当前时间",
                   xAxis: new Date().getTime(),
+                  label: {
+                    formatter: "当前时间",
+                  },
                 },
               ],
             },
