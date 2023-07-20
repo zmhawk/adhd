@@ -14,7 +14,8 @@ export function setLocalStorage(key: string, data: any) {
 }
 
 export function getLocalStorage(key: string): any {
-  return JSON.parse(localStorage.getItem(key) || "");
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
 }
 
 export function readData(): Dose[] {
