@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import _ from "lodash";
 
 const DB_KEY = "concerta_db";
@@ -14,11 +14,11 @@ export function setLocalStorage(key: string, data: any) {
 }
 
 export function getLocalStorage(key: string): any {
-  return JSON.parse(localStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key) || "");
 }
 
 export function readData(): Dose[] {
-  return _.sortBy(getLocalStorage(DB_KEY), "time").reverse();
+  return _.sortBy(getLocalStorage(DB_KEY), "time").reverse() as Dose[];
 }
 
 export function writeData(data: Dose[]) {

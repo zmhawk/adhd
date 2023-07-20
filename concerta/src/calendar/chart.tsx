@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { readData } from "../utils/db";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 export function renderCalenderChart() {
   const list = readData() || [];
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const calenderChart = echarts.init(document.getElementById("calenderChart"));
 
-  const data = list.map((i, index) => [
-    dayjs(i.time).format("YYYY-MM-DD"),
-    i.dose,
-  ]);
+  const data = list.map((i) => [dayjs(i.time).format("YYYY-MM-DD"), i.dose]);
 
-  const dataMap = data.reduce((acc, cur) => {
-    const [date, dose] = cur;
+  const dataMap = data.reduce((acc: Record<string, number>, cur) => {
+    const [date, dose] = cur as [string, number];
     if (acc[date]) {
       acc[date] += dose;
     } else {
@@ -92,7 +94,7 @@ export function renderCalenderChart() {
         //   // shadowOffsetY: 0,
         //   // shadowColor: "#555",
         // },
-        renderItem: function (params, api) {
+        renderItem: function (params: any, api: any) {
           const cellPoint = api.coord(api.value(0));
           const cellWidth = params.coordSys.cellWidth;
           const cellHeight = params.coordSys.cellHeight;
@@ -115,7 +117,7 @@ export function renderCalenderChart() {
           //   textColor = "#000";
           // }
 
-          const groups = [
+          const groups: any[] = [
             {
               type: "text",
               style: {

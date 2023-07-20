@@ -1,21 +1,11 @@
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-// import FormGroup from "@mui/material/FormGroup";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
-// import Grid from "@mui/material/Grid";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
-import { Dose, readData, writeData } from "../utils/db";
-import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
+import { readData, writeData } from "../utils/db";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -25,7 +15,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import _ from "lodash";
 import Snackbar from "@mui/material/Snackbar";
-// import { sortBy } from "../utils/utils";
 
 export default function Setting() {
   const [open, setOpen] = useState(false);

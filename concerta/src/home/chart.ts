@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { readData } from "../utils/db";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const arr = [
   [0, 0],
@@ -22,7 +24,7 @@ const arr = [
   // [30, 0.04],
 ];
 
-export function getHour(value: any): number {
+export function getHour(value: number): number | null {
   if (value === null) {
     return null;
   }
@@ -39,9 +41,10 @@ export function renderMainChart() {
   if (!last || last < dayjs().subtract(16, "hour").valueOf()) {
     return;
   }
-  const start: number = getHour(last);
+  const start: number = getHour(last) || 0;
 
   // 基于准备好的dom，初始化echarts实例
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const myChart = echarts.init(document.getElementById("mainChart"));
   // 指定图表的配置项和数据
   const option = {

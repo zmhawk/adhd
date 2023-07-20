@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { renderMainChart } from "./chart";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -14,7 +14,7 @@ import { useInterval } from "../utils/hooks";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [time, setTime] = useState(dayjs());
+  const [time, setTime] = useState<Dayjs | null>(dayjs());
 
   const handleClose = () => {
     setOpen(false);
@@ -27,7 +27,7 @@ export default function Home() {
 
   const handleConfirm = () => {
     setOpen(false);
-    addDose(time);
+    addDose(time as Dayjs);
     renderMainChart();
   };
 
@@ -71,7 +71,7 @@ export default function Home() {
             autoFocus
             ampm={false}
             defaultValue={time}
-            onChange={(newValue: Dayjs) => {
+            onChange={(newValue: Dayjs | null) => {
               setTime(newValue);
             }}
           />

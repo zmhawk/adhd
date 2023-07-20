@@ -44,7 +44,7 @@ function App() {
           <BottomNavigation
             showLabels
             value={tab}
-            onChange={(event, newValue: Tab) => {
+            onChange={(_event, newValue: Tab) => {
               setTab(newValue);
             }}
           >
