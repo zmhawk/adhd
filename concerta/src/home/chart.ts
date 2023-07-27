@@ -46,6 +46,11 @@ export function renderMainChart() {
   // 基于准备好的dom，初始化echarts实例
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const myChart = echarts.init(document.getElementById("mainChart"));
+  const data = arr.map((i) => [
+    dayjs().startOf("days").valueOf() + (i[0] + start) * 3600000,
+    i[1],
+  ]);
+  const beginTime = data[0][0];
   // 指定图表的配置项和数据
   const option = {
     tooltip: {},
@@ -81,36 +86,41 @@ export function renderMainChart() {
       containLabel: true,
     },
 
+    visualMap: {
+      type: "piecewise",
+      show: false,
+      dimension: 0,
+      seriesIndex: 0,
+      pieces: [
+        {
+          gt: beginTime + 3600000 * 1.1,
+          lt: beginTime + 3600000 * 12,
+          color: "#6699ff",
+        },
+      ],
+    },
+
     series: [
       {
         name: "zzd",
         type: "line",
-        data: arr.map((i) => [
-          dayjs().startOf("days").valueOf() + (i[0] + start) * 3600000,
-          i[1],
-        ]),
+        data,
         smooth: true,
         symbol: "none",
-        stack: "Total",
         areaStyle: {
-          // color: "#6699ff",
           opacity: 0.2,
+        },
+        lineStyle: {
+          color: "#5470C6",
+          width: 5,
         },
         markLine: {
           symbol: "none",
-
           lineStyle: {
-            width: 2,
-            type: "solid",
+            width: 3,
+            // type: "solid",
           },
           data: [
-            {
-              name: "药效区间",
-              yAxis: 2,
-              label: {
-                formatter: "",
-              },
-            },
             {
               name: "当前时间",
               xAxis: new Date().getTime(),
