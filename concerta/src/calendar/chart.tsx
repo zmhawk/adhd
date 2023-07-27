@@ -96,12 +96,7 @@ export function renderCalenderChart() {
         // },
         renderItem: function (params: any, api: any) {
           const cellPoint = api.coord(api.value(0));
-          const cellWidth = params.coordSys.cellWidth;
-          const cellHeight = params.coordSys.cellHeight;
           const value = api.value(1);
-          // if (isNaN(cellPoint[0]) || isNaN(cellPoint[1])) {
-          //   return;
-          // }
 
           const date = dayjs(api.value(0));
 
@@ -123,7 +118,7 @@ export function renderCalenderChart() {
               style: {
                 x: cellPoint[0],
                 y: cellPoint[1] - 7,
-                text: date.format("D"),
+                text: isToday ? "今" : date.format("D"),
                 fill: textColor,
                 textFont: api.font({ fontSize: 14 }),
                 textAlign: "center",
@@ -146,21 +141,6 @@ export function renderCalenderChart() {
                 shadowOffsetX: 0,
                 shadowOffsetY: 0,
                 shadowColor: "#555",
-              },
-            });
-          }
-
-          if (isToday) {
-            groups.unshift({
-              type: "rect",
-              shape: {
-                x: x - cellWidth / 2 + 1,
-                y: y - cellHeight / 2 + 1,
-                width: cellWidth - 2,
-                height: cellHeight - 2,
-              },
-              style: {
-                fill: "#eee",
               },
             });
           }
