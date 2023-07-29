@@ -94,7 +94,7 @@ export function renderCalenderChart() {
         //   // shadowOffsetY: 0,
         //   // shadowColor: "#555",
         // },
-        renderItem: function (params: any, api: any) {
+        renderItem: function (_params: any, api: any) {
           const cellPoint = api.coord(api.value(0));
           const value = api.value(1);
 
